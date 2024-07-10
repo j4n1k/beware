@@ -1,7 +1,7 @@
 import networkx as nx
 import numpy as np
 
-def gen_graph(layout: np.array, double_deep):
+def gen_graph(layout: np.array, double_deep, aisle_distance=2, location_distance=1):
     G = nx.Graph()
 
     walkable_pos = np.where(layout == 0)
@@ -21,12 +21,12 @@ def gen_graph(layout: np.array, double_deep):
         unten = (x, y-1,0)
         if links[0]>= 0:
             if layout[links] == 0:
-                G.add_edge((x,y,0),links, weight=1)
+                G.add_edge((x,y,0),links, weight=aisle_distance/2)
             # elif layout[links] == -1:
             #     G.add_edge((x,y),links, weight=1)
         if rechts[0] < layout.shape[0]:
             if layout[rechts] == 0:
-                G.add_edge((x,y,0),rechts, weight=1)
+                G.add_edge((x,y,0),rechts, weight=aisle_distance/2)
             # elif layout[rechts] == -1:
             #     G.add_edge((x,y),rechts, weight=1)
             
@@ -50,10 +50,6 @@ def gen_graph(layout: np.array, double_deep):
     
     for x, y, z in zip(xs_store, ys_store, zs_store):
         G.add_node((x, y, z))
-
-
-
-    
     return G
 
 # def gen_pos(G: nx.Graph):

@@ -61,6 +61,7 @@ protobuf==4.24.4
 psutil==5.9.5
 ptyprocess==0.7.0
 PuLP==2.7.0
+pyomo
 pure-eval==0.2.2
 pyarrow==15.0.1
 pydeck==0.8.1b0

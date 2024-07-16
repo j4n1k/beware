@@ -1,4 +1,3 @@
-from warehouse_model.layout import Layout
 import numpy as np
 from solver.slap_models import SLAP, SLAP_PA, SLAP_QA
 

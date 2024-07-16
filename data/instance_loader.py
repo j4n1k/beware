@@ -50,18 +50,22 @@ class InstanceLoader:
 
         # Creating orders list
         orders = []
-        order = []
+        current_order = []
         for line in order_data:
-            parts = line.split()
-            if " : " not in line and not "EOF" in line:
-                if parts[0] == "NUM_ARTICLES_IN_ORDER":
-                    if order:
-                        orders.append(order)
-                        order = []
-                else:
-                    order.append((int(parts[1]), int(parts[3])))
-        if order:
-            orders.append(order)
+            line = line.strip()
+            if line.startswith("NUM_ARTICLES_IN_ORDER"):
+                # If there's a current order being processed, add it to orders
+                if current_order:
+                    orders.append(current_order)
+                    current_order = []
+            elif line.startswith("ID"):
+                parts = line.split()
+                product_id = int(parts[1])
+                quantity = int(parts[3])
+                current_order.append([product_id, quantity])
+
+        if current_order:
+            orders.append(current_order)
 
         self.general_info = header_info
         self.skus = skus

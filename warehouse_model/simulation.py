@@ -5,7 +5,7 @@ from queue import PriorityQueue
 from typing import List, Mapping, Literal
 import datetime
 import networkx as nx
-from layout_utils.layout import Layout
+from warehouse_model.layout import Layout
 import os
 
 def aisle_to_sku(order, system: Layout):

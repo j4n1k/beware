@@ -1,12 +1,12 @@
 from typing import List, Tuple, Literal
-from layout_utils.simulation import s_shape, stichgang
+from warehouse_model.simulation import s_shape, stichgang
 from copy import deepcopy
 from collections import Counter 
 from dataclasses import dataclass
 import random
 import numpy as np
 
-from layout_utils.layout import Layout
+from warehouse_model.layout import Layout
 
 from ortools.constraint_solver import routing_enums_pb2
 from ortools.constraint_solver import pywrapcp

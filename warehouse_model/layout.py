@@ -1,7 +1,7 @@
 import numpy as np
 import networkx as nx
 import scipy
-from layout_utils.graph_tools import gen_graph, gen_pos
+from warehouse_model.graph_tools import gen_graph, gen_pos
 from copy import deepcopy
 import os
 

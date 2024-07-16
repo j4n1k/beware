@@ -1,4 +1,5 @@
 import numpy as np
+from data.slap_instance import SLAPInstance
 from solver.slap_models import SLAP, SLAP_PA, SLAP_QA
 import argparse
 
@@ -11,32 +12,17 @@ parser.add_argument('--slap_model', default="QA", type=str,
 parser.add_argument('--instance', default="test", type=str)
 
 params = parser.parse_args()
-# Params
+
+instance = SLAPInstance(params.instance)
+(distance_mat, products, product_pairs_frequency,
+ product_frequency, storage_locs) = instance.load_data()
+
 depot = params.depot_location
-d = None
-products = None
-w = None
-storage_locs = None
-
-if params.instance == "test":
-    products = [0, 1, 2, 3]
-    storage_locs = [0, 1, 2, 3]
-
-    # Flow matrix (between assignees)
-    w = np.array([[0, 3, 0, 2],
-                  [3, 0, 0, 1],
-                  [0, 0, 0, 4],
-                  [2, 1, 4, 0]])
-
-    # Distance matrix (between assignments)
-    d = np.array([[0, 22, 53, 53],
-                  [22, 0, 40, 62],
-                  [53, 40, 0, 55],
-                  [53, 62, 55, 0]])
 
 if params.slap_model == "QA":
-    slap = SLAP_QA(d, products, w, storage_locs, depot)
+    slap = SLAP_QA(distance_mat, products, product_pairs_frequency, storage_locs, depot)
     slap.report()
 
-# elif params.slap_model == "PA":
-    # slap = SLAP_PA(d, products, w, product_pairs_frequency, storage_locs, depot)
+elif params.slap_model == "PA":
+    slap = SLAP_PA(distance_mat, products, product_frequency, product_pairs_frequency, storage_locs, depot)
+    slap.report()

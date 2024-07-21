@@ -4,3 +4,4 @@ venv/
 *.npy
 __pycache__/
 .idea
+*.zip
